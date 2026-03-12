@@ -1,15 +1,22 @@
-import React from 'react'
+import React from "react";
 
 const Navbar = () => {
   return (
-    <div>
-      <div className="flex gap-2 bg-slate-600 list-none m-0 py-0">
-        <div className="">iTask</div>
-        <li>Home</li>
-        <li>Your Task</li>
-      </div>
-    </div>
-  )
-}
+    <nav className="bg-slate-600 text-white py-3 w-full">
+      <div className="flex items-center justify-between px-6">
+        
+        {/* Logo */}
+        <div className="text-xl font-bold">iTask</div>
 
-export default Navbar
+        {/* Menu */}
+        <ul className="flex gap-6 list-none">
+          <li className="cursor-pointer hover:text-gray-200">Home</li>
+          <li className="cursor-pointer hover:text-gray-200">Your Task</li>
+        </ul>
+
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
