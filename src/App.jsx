@@ -133,7 +133,7 @@ function App() {
 
           <h2 className="text-base sm:text-lg font-semibold mb-3 text-slate-200">Your Todos</h2>
 
-          <div className="todos space-y-3 overflow-y-auto pr-1 flex-1">
+          <div className="todos space-y-3 overflow-y-auto pr-2 flex-1">
             {todos.length === 0 && <div className="text-slate-400 text-sm">No todos to display</div>}
 
 
