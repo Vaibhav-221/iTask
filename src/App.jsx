@@ -81,49 +81,99 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className='container mx-auto my-10 rounded-2xl shadow-xl p-6 md:p-8 bg-[#EBF4DD] text-[#3B4953] min-h-[75vh] max-w-3xl'>
 
-        <div className="addtodo mb-4">
-          <h2 className='text-2xl font-bold text-[#3B4953]'>Add a Todo</h2>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617] flex items-start justify-center py-10">
 
+        <div className='w-full max-w-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-6 md:p-8 text-white min-h-[75vh]'>
 
-        <div className="flex flex-col md:flex-row gap-3 mb-5">
-          <input onChange={handlchange} value={todo} type="text" placeholder="Write your task..." className='flex-1 rounded-lg px-4 py-2 border border-[#90AB8B] focus:outline-none focus:ring-2 focus:ring-[#5A7863] bg-white' />
-          <button onClick={handladd} className='bg-[#5A7863] hover:bg-[#3B4953] transition rounded-lg px-6 py-2 text-sm font-semibold text-white shadow-md'>Save</button>
-        </div>
+          <h1 className="font-bold text-center text-3xl md:text-4xl mb-6 tracking-wide">
+            iTask
+            <span className="block text-base md:text-lg font-normal text-slate-300 mt-1">
+              Manage your todos at one place
+            </span>
+          </h1>
 
-        <div className="flex items-center gap-2 mb-6">
-          <input type="checkbox" checked={showFinished} onChange={togglefinished} className="accent-[#5A7863]" />
-          <label htmlFor="show" className="font-medium">Show Finished</label>
-        </div>
-
-        <h2 className="text-xl font-bold mb-4">Your Todos</h2>
-
-        <div className="todos space-y-3">
-          {todos.length === 0 && <div className="text-gray-600">No todos to display</div>}
+          <div className="addtodo mb-4">
+            <h2 className='text-lg font-semibold text-slate-200'>Add a Todo</h2>
+          </div>
 
 
-          {todos.map((item) => {
+          <div className="flex flex-col md:flex-row gap-3 mb-6">
+            <input onChange={handlchange} value={todo} type="text"
+              placeholder="Write your next task..."
+              className='flex-1 rounded-xl px-4 py-2 bg-white/20 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-300'
+            />
 
-            return (showFinished || !item.isCompleted) && <div key={item.id} className='todo flex items-center justify-between gap-4 bg-white rounded-xl shadow-md px-4 py-3 border border-[#90AB8B]'>
+            <button
+              onClick={handladd}
+              className='bg-cyan-500 hover:bg-cyan-600 transition px-6 py-2 rounded-xl font-semibold shadow-lg shadow-cyan-500/20'
+            >
+              Save
+            </button>
+          </div>
 
-              <div className="flex items-center gap-3 flex-1">
-                <input name={item.id} onChange={handlcheckbox} type="checkbox" value={item.isCompleted} className="accent-[#5A7863] scale-110" />
-                <div className={`${item.isCompleted ? "line-through opacity-60" : ""} break-words`}> {item.todo}</div>
+          <div className="flex items-center justify-between bg-white/10 border border-white/20 rounded-xl px-4 py-3 mb-6">
+            <label htmlFor="show" className="font-medium text-slate-200 flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={showFinished}
+                onChange={togglefinished}
+                className="accent-cyan-400 scale-110"
+              />
+              Show Finished Tasks
+            </label>
+
+            <span className="text-sm text-slate-300">
+              {showFinished ? "Visible" : "Hidden"}
+            </span>
+          </div>
+
+          <h2 className="text-lg font-semibold mb-3 text-slate-200">Your Todos</h2>
+
+          <div className="todos space-y-3">
+            {todos.length === 0 && <div className="text-slate-400">No todos to display</div>}
+
+
+            {todos.map((item) => {
+
+              return (showFinished || !item.isCompleted) && <div key={item.id} className='todo flex items-center justify-between gap-4 bg-white/10 border border-white/20 rounded-xl px-4 py-3 hover:bg-white/20 transition'>
+
+                <div className="flex items-center gap-3 flex-1">
+                  <input
+                    name={item.id}
+                    onChange={handlcheckbox}
+                    type="checkbox"
+                    checked={item.isCompleted}
+                    className="accent-cyan-400 scale-110"
+                  />
+
+                  <div className={`${item.isCompleted ? "line-through opacity-60" : ""}`}>
+                    {item.todo}
+                  </div>
+                </div>
+
+                <div className="button flex gap-2">
+
+                  <button
+                    onClick={(e) => { handledit(e, item.id) }}
+                    className='bg-indigo-500 hover:bg-indigo-600 transition rounded-lg px-3 py-2 text-white shadow-md flex items-center justify-center'
+                  >
+                    <FaEdit />
+                  </button>
+
+                  <button
+                    onClick={(e) => { handldelete(e, item.id) }}
+                    className='bg-rose-500 hover:bg-rose-600 transition rounded-lg px-3 py-2 text-white shadow-md flex items-center justify-center'
+                  >
+                    <MdDelete />
+                  </button>
+                </div>
+
               </div>
 
-              <div className="button flex gap-2">
+            })}
 
-                <button onClick={(e) => { handledit(e, item.id) }} className='bg-[#90AB8B] hover:bg-[#5A7863] transition rounded-lg px-3 py-2 text-white shadow-sm flex items-center justify-center'><FaEdit /></button>
-
-                <button onClick={(e) => { handldelete(e, item.id) }} className='bg-[#3B4953] hover:bg-black transition rounded-lg px-3 py-2 text-white shadow-sm flex items-center justify-center'><MdDelete /></button>
-              </div>
-
-            </div>
-
-          })}
-
+          </div>
         </div>
       </div>
     </>
