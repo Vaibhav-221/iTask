@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import './App.css'
 import Navbar from './components/Navbar'
 import { v4 as uuidv4 } from 'uuid';
@@ -9,11 +10,29 @@ function App() {
 
   const [todo, settodo] = useState("")
   const [todos, settodos] = useState([])
+  const [showFinished, setshowFinished] = useState(true)
+
+
+  useEffect(() => {
+    let todoString = localStorage.getItem("todos")
+    if(todoString){
+      let todos  = JSON.parse(localStorage.getItem("todos"))
+      settodos(todos)
+    }
+  }, [])
+  
+
+
+  const saveToLS = ()=>{
+    localStorage.setItem("todos", JSON.stringify(todos))
+  } 
+
 
   const handladd = () => {
     if (todo.trim() === "") return;
   settodos([...todos, {id : uuidv4(),  todo, isCompleted: false }]);
   settodo("");
+  saveToLS()
 
   }
   const handlchange = (e) => {
@@ -27,6 +46,7 @@ function App() {
       return item.id!==id
     })
     settodos(newTodos)
+    saveToLS()
 
 
 
@@ -36,6 +56,7 @@ function App() {
       return item.id!==id
     })
     settodos(newTodos)
+    saveToLS()
 
   }
 
@@ -47,6 +68,7 @@ function App() {
     let newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     settodos(newTodos)
+    saveToLS()
     // saveToLS()
     
   }
