@@ -27,6 +27,19 @@ function App() {
 
   }
 
+  const handlcheckbox = (e) => {
+    let id = e.target.name;  
+    let index = todos.findIndex(item=>{
+      return item.id === id;
+    }) 
+    let newTodos = [...todos];
+    newTodos[index].isCompleted = !newTodos[index].isCompleted;
+    settodos(newTodos)
+    // saveToLS()
+    
+  }
+  
+
   return (
     <>
       <Navbar />
@@ -45,10 +58,10 @@ function App() {
         <h2 className="text-lg font-bold">Your Todos</h2>
 
         <div className="todos">
-          {todos.map((item, index) => {
+          {todos.map((item) => {
 
-             return <div key={index} className='todo flex w-1/2 justify-between my-2'>
-              <input type="checkbox" value={todo.isCompleted} />
+             return <div key={item.id} className='todo flex w-1/2 justify-between my-2'>
+              <input name={item.id} onChange={handlcheckbox}  type="checkbox" value={item.isCompleted} />
               <div className={item.isCompleted?"line-through":""}> {item.todo}</div>
 
               <div className="button">
