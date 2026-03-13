@@ -62,6 +62,9 @@ function App() {
         <h2 className="text-lg font-bold">Your Todos</h2>
 
         <div className="todos">
+          {todos.length ===0 &&<div>No todos to display</div> }
+
+          
           {todos.map((item) => {
 
              return <div key={item.id} className='todo flex w-1/2 justify-between my-2'>
