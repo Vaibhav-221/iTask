@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useState, useEffect } from 'react';
 import './App.css'
 import Navbar from './components/Navbar'
@@ -15,24 +14,24 @@ function App() {
 
   useEffect(() => {
     let todoString = localStorage.getItem("todos")
-    if(todoString){
-      let todos  = JSON.parse(localStorage.getItem("todos"))
+    if (todoString) {
+      let todos = JSON.parse(localStorage.getItem("todos"))
       settodos(todos)
     }
   }, [])
-  
 
 
-  const saveToLS = ()=>{
+
+  const saveToLS = () => {
     localStorage.setItem("todos", JSON.stringify(todos))
-  } 
+  }
 
 
   const handladd = () => {
     if (todo.trim() === "") return;
-  settodos([...todos, {id : uuidv4(),  todo, isCompleted: false }]);
-  settodo("");
-  saveToLS()
+    settodos([...todos, { id: uuidv4(), todo, isCompleted: false }]);
+    settodo("");
+    saveToLS()
 
   }
   const handlchange = (e) => {
@@ -40,10 +39,10 @@ function App() {
 
   }
   const handledit = (e, id) => {
-    let t = todos.filter(i=>i.id === id)
+    let t = todos.filter(i => i.id === id)
     settodo(t[0].todo)
-    let newTodos = todos.filter(item=>{
-      return item.id!==id
+    let newTodos = todos.filter(item => {
+      return item.id !== id
     })
     settodos(newTodos)
     saveToLS()
@@ -52,8 +51,8 @@ function App() {
 
   }
   const handldelete = (e, id) => {
-    let newTodos = todos.filter(item=>{
-      return item.id!==id
+    let newTodos = todos.filter(item => {
+      return item.id !== id
     })
     settodos(newTodos)
     saveToLS()
@@ -61,18 +60,22 @@ function App() {
   }
 
   const handlcheckbox = (e) => {
-    let id = e.target.name;  
-    let index = todos.findIndex(item=>{
+    let id = e.target.name;
+    let index = todos.findIndex(item => {
       return item.id === id;
-    }) 
+    })
     let newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     settodos(newTodos)
     saveToLS()
     // saveToLS()
-    
+
   }
-  
+
+  const togglefinished = (e) => {
+    setshowFinished(!showFinished)
+  }
+
 
   return (
     <>
@@ -89,23 +92,28 @@ function App() {
         
         rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Save</button>
 
+        <div>
+          <input type="checkbox" checked={showFinished} onChange={togglefinished} />
+          <label htmlFor="show"> Show Finished</label>
+        </div>
+
         <h2 className="text-lg font-bold">Your Todos</h2>
 
         <div className="todos">
-          {todos.length ===0 &&<div>No todos to display</div> }
+          {todos.length === 0 && <div>No todos to display</div>}
 
 
           {todos.map((item) => {
 
-             return <div key={item.id} className='todo flex w-1/2 justify-between my-2'>
-              <input name={item.id} onChange={handlcheckbox}  type="checkbox" value={item.isCompleted} />
-              <div className={item.isCompleted?"line-through":""}> {item.todo}</div>
+            return (showFinished || !item.isCompleted) && <div key={item.id} className='todo flex w-1/2 justify-between my-2'>
+              <input name={item.id} onChange={handlcheckbox} type="checkbox" value={item.isCompleted} />
+              <div className={item.isCompleted ? "line-through" : ""}> {item.todo}</div>
 
               <div className="button">
 
-                <button onClick={(e)=>{handledit(e, item.id)}} className='bg-slate-800 mx-2 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Edit</button>
+                <button onClick={(e) => { handledit(e, item.id) }} className='bg-slate-800 mx-2 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Edit</button>
 
-                <button onClick={(e)=>{handldelete(e, item.id)}} className='bg-slate-800 mx-1 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Delete</button>
+                <button onClick={(e) => { handldelete(e, item.id) }} className='bg-slate-800 mx-1 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Delete</button>
               </div>
 
             </div>
