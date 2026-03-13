@@ -23,7 +23,11 @@ function App() {
   const handledit = () => {
 
   }
-  const handldelete = () => {
+  const handldelete = (e, id) => {
+    let newTodos = todos.filter(item=>{
+      return item.id!==id
+    })
+    settodos(newTodos)
 
   }
 
@@ -68,7 +72,7 @@ function App() {
 
                 <button onClick={handledit} className='bg-slate-800 mx-2 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Edit</button>
 
-                <button onClick={handldelete} className='bg-slate-800 mx-1 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Delete</button>
+                <button onClick={(e)=>{handldelete(e, item.id)}} className='bg-slate-800 mx-1 rounded-full hover:bg-slate-950 disabled:bg-slate-500 p-6 py-2 text-sm font-bold text-white' >Delete</button>
               </div>
 
             </div>
