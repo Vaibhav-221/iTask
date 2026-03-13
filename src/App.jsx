@@ -82,37 +82,40 @@ function App() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617] flex items-start justify-center py-10">
+      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617] flex justify-center pt-24 pb-10 px-4">
 
-        <div className='w-full max-w-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-6 md:p-8 text-white min-h-[75vh]'>
+        <div className='w-full max-w-md md:max-w-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-5 sm:p-6 md:p-8 text-white h-[80vh] flex flex-col'>
 
-          <h1 className="font-bold text-center text-3xl md:text-4xl mb-6 tracking-wide">
+          <h1 className="font-bold text-center text-2xl sm:text-3xl md:text-4xl mb-6 tracking-wide">
             iTask
-            <span className="block text-base md:text-lg font-normal text-slate-300 mt-1">
+            <span className="block text-sm sm:text-base md:text-lg font-normal text-slate-300 mt-1">
               Manage your todos at one place
             </span>
           </h1>
 
           <div className="addtodo mb-4">
-            <h2 className='text-lg font-semibold text-slate-200'>Add a Todo</h2>
+            <h2 className='text-base sm:text-lg font-semibold text-slate-200'>Add a todo</h2>
           </div>
 
 
-          <div className="flex flex-col md:flex-row gap-3 mb-6">
-            <input onChange={handlchange} value={todo} type="text"
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <input
+              onChange={handlchange}
+              value={todo}
+              type="text"
               placeholder="Write your next task..."
-              className='flex-1 rounded-xl px-4 py-2 bg-white/20 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-300'
+              className='flex-1 rounded-xl px-4 py-2 bg-white/20 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 placeholder:text-slate-300 text-sm sm:text-base'
             />
 
             <button
               onClick={handladd}
-              className='bg-cyan-500 hover:bg-cyan-600 transition px-6 py-2 rounded-xl font-semibold shadow-lg shadow-cyan-500/20'
+              className='bg-cyan-500 hover:bg-cyan-600 transition px-6 py-2 rounded-xl font-semibold shadow-lg shadow-cyan-500/20 text-sm sm:text-base'
             >
               Save
             </button>
           </div>
 
-          <div className="flex items-center justify-between bg-white/10 border border-white/20 rounded-xl px-4 py-3 mb-6">
+          <div className="flex items-center justify-between bg-white/10 border border-white/20 rounded-xl px-4 py-3 mb-6 text-sm sm:text-base">
             <label htmlFor="show" className="font-medium text-slate-200 flex items-center gap-3">
               <input
                 type="checkbox"
@@ -123,22 +126,22 @@ function App() {
               Show Finished Tasks
             </label>
 
-            <span className="text-sm text-slate-300">
+            <span className="text-xs sm:text-sm text-slate-300">
               {showFinished ? "Visible" : "Hidden"}
             </span>
           </div>
 
-          <h2 className="text-lg font-semibold mb-3 text-slate-200">Your Todos</h2>
+          <h2 className="text-base sm:text-lg font-semibold mb-3 text-slate-200">Your Todos</h2>
 
-          <div className="todos space-y-3">
-            {todos.length === 0 && <div className="text-slate-400">No todos to display</div>}
+          <div className="todos space-y-3 overflow-y-auto pr-1 flex-1">
+            {todos.length === 0 && <div className="text-slate-400 text-sm">No todos to display</div>}
 
 
             {todos.map((item) => {
 
-              return (showFinished || !item.isCompleted) && <div key={item.id} className='todo flex items-center justify-between gap-4 bg-white/10 border border-white/20 rounded-xl px-4 py-3 hover:bg-white/20 transition'>
+              return (showFinished || !item.isCompleted) && <div key={item.id} className='todo flex items-center justify-between gap-3 bg-white/10 border border-white/20 rounded-xl px-4 py-3 hover:bg-white/20 transition'>
 
-                <div className="flex items-center gap-3 flex-1">
+                <div className="flex items-center gap-3 flex-1 text-sm sm:text-base">
                   <input
                     name={item.id}
                     onChange={handlcheckbox}
@@ -147,12 +150,12 @@ function App() {
                     className="accent-cyan-400 scale-110"
                   />
 
-                  <div className={`${item.isCompleted ? "line-through opacity-60" : ""}`}>
+                  <div className={`${item.isCompleted ? "line-through opacity-60" : ""} break-words flex-1`}>
                     {item.todo}
                   </div>
                 </div>
 
-                <div className="button flex gap-2">
+                <div className="button flex gap-2 shrink-0">
 
                   <button
                     onClick={(e) => { handledit(e, item.id) }}
