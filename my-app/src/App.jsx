@@ -86,7 +86,7 @@ function App() {
 
         <div className='w-full max-w-md md:max-w-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-5 sm:p-6 md:p-8 text-white h-[80vh] flex flex-col'>
 
-          <h1 className="font-bold text-center text-2xl sm:text-3xl md:text-4xl mb-6 tracking-wide">
+          <h1 className="font-bold text-center text-3xl sm:text-3xl md:text-4xl mb-6 tracking-wide">
             iTask
             <span className="block text-sm sm:text-base md:text-lg font-normal text-slate-300 mt-1">
               Manage your todos at one place
